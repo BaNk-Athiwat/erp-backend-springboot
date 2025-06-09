@@ -27,9 +27,9 @@ public class FormularController {
     @Autowired
     FormularRepository formularRepository;
 
-    @GetMapping
-    public ResponseEntity<List<FormularEntity>> getAllFormulars() {
-        return ResponseEntity.ok(formularRepository.findAll());
+    @GetMapping("/{productionId}")
+    public ResponseEntity<List<FormularEntity>> getAllFormulars(@PathVariable Long productionId) {
+        return ResponseEntity.ok(formularRepository.findAllByProductionIdOrderByIdDesc(productionId));
     }
     
     @PostMapping
@@ -42,7 +42,6 @@ public class FormularController {
         try {
             FormularEntity entity = formularRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Formular not found with id: " + id));
-            entity.setName(formular.getName());
             entity.setQty(formular.getQty());
             entity.setUnitName(formular.getUnitName());
             entity.setMaterial(formular.getMaterial());

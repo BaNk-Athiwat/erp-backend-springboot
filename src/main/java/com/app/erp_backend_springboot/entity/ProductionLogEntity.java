@@ -1,5 +1,7 @@
 package com.app.erp_backend_springboot.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,20 +14,16 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class FormularEntity {
-
+public class ProductionLogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer qty;
-    private String unitName;
-
-    @ManyToOne
-    @JoinColumn(name = "material_id")
-    private MaterialEntity material;
-
     @ManyToOne
     @JoinColumn(name = "production_id")
     private ProductionEntity production;
+
+    private LocalDateTime createAt;
+    private String remarks;
+    private Integer qty;
 }
